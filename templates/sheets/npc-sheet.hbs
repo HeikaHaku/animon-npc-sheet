@@ -1,0 +1,247 @@
+{{!-- Sheet for displaying Animon NPCs --}}
+
+<form class="{{cssClass}}" autocomplete="off">
+  <div class="stage-box-border">
+    <div class="npc-top">
+      <div class="item-box-border kid-title">
+        <h3>NPC</h3>
+      </div>
+
+      <div class="item-box-border">
+        <div class="kid-name">
+          <h3>NPC Name:</h3>
+          <input type="text" name="name" value="{{actor.name}}" />
+        </div>
+
+        <div class="virtue-flaw">
+          <div class="virtue">
+            <h3>Personality:</h3>
+            <input type="text" name="system.personality" value="{{actor.system.personality}}" />
+          </div>
+
+          <div class="flaw">
+            <h3>Motivation:</h3>
+            <input type="text" name="system.motivation" value="{{actor.system.motivation}}" />
+          </div>
+        </div>
+      </div>
+
+      <div class="item-box-border">
+        <h3>Type:</h3>
+        <select class="type-change" name="system.type">
+          {{#select actor.system.type}}
+          <option value="human">Human</option>
+          <option value="animon">Animon</option>
+          {{/select}}
+        </select>
+      </div>
+    </div>
+
+    <div class="npc-sheet">
+      <div class="item-box-border child-traits">
+        <h3>NPC Stats</h3>
+        <div class="npc-stats">
+          <div class="npc-level">
+            <div class="npc-level-title">
+              <h4>Level</h4>
+              <a title="Level" data-stat="Level" data-value="{{actor.system.traits.level}}"></a>
+            </div>
+            <input type="number" name="system.traits.level" value="{{actor.system.traits.level}}" />
+          </div>
+
+          <div class="npc-skill">
+            <div class="npc-skill-title">
+              <h4>Skill</h4>
+              <a title="Skill" class="roll-stat" data-stat="Skill" data-value="{{actor.system.traits.skill}}">
+                <i class="fas fa-dice"></i>
+              </a>
+            </div>
+
+            <input type="number" name="system.traits.skill" value="{{actor.system.traits.skill}}" />
+          </div>
+
+          <div class="npc-initiative">
+            <div class="npc-initiative-title">
+              <h4>Initiative</h4>
+              <a title="Initiative" class="roll-stat" data-stat="Initiative"
+                data-value="{{actor.system.traits.initiative}}">
+                <i class="fas fa-dice"></i>
+              </a>
+            </div>
+
+            <input type="number" name="system.traits.initiative" value="{{actor.system.traits.initiative}}" />
+          </div>
+
+          {{#if (eq actor.system.type "animon")}}
+          <div class="npc-damage">
+            <div class="npc-damage-title">
+              <h4>Damage</h4>
+              <a title="Damage" class="roll-stat" data-stat="Damage" data-value="{{actor.system.traits.damage}}">
+                <i class="fas fa-dice"></i>
+              </a>
+            </div>
+
+            <input type="number" name="system.traits.damage" value="{{actor.system.traits.damage}}" />
+          </div>
+
+          <div class="npc-dodge">
+            <div class="npc-dodge-title">
+              <h4>Dodge</h4>
+              <a title="Dodge" class="roll-stat" data-stat="Dodge" data-value="{{actor.system.traits.dodge}}">
+                <i class="fas fa-dice"></i>
+              </a>
+            </div>
+
+            <input type="number" name="system.traits.dodge" value="{{actor.system.traits.dodge}}" />
+          </div>
+
+        </div>
+        {{/if}}
+      </div>
+
+      {{#if (eq actor.system.type "animon")}}
+      <div class="item-box-border npc-upgrade-block">
+        <h3>Upgrades {{upgradeCount actor }}</h3>
+        <div class="npc-upgrades">
+          {{#each actor.system.upgrades as |upgrade id|}}
+          <div class="npc-upgrade">
+            <h4>{{titlecase id}}:</h4>
+            <input type="number" name="system.upgrades.{{id}}" value="{{upgrade}}" />
+          </div>
+          {{/each}}
+        </div>
+      </div>
+      {{/if}}
+    </div>
+
+    <div class="npc-animon">
+      <div class="item-box-border npc-health">
+        <h4>
+          {{#if (eq actor.system.type "animon")}}
+          Hit Points
+          {{else}}
+          Stamina
+          {{/if}}
+        </h4>
+        <input style="margin-left:auto" type="number" name="system.traits.hp.current"
+          value="{{actor.system.traits.hp.current}}" />
+        <div class="stamina-line"></div>
+        <input type="number" name="system.traits.hp.max" value="{{actor.system.traits.hp.max}}" />
+      </div>
+
+      {{#if (eq actor.system.type "animon")}}
+      <div class="item-box-border npc-stage">
+        <h4>Stage:</h4>
+        <select class="stage-change" name="system.stage">
+          {{#select actor.system.stage}}
+          <option value="fledgling">Fledgling</option>
+          <option value="basic">Basic</option>
+          <option value="super">Super</option>
+          <option value="ultra">Ultra</option>
+          <option value="giga">Giga</option>
+          {{/select}}
+        </select>
+      </div>
+
+      <div class="item-box-border npc-classification">
+        <h4>Classification:</h4>
+        <select class="classification-change" name="system.classification">
+          {{#select actor.system.classification}}
+          Dragon, Beast, Avian, Insect, Plant, Aquatic, Celestial,
+          Infernal, Machine, Fairy, Nightmare, Unknown.
+          <option value="dragon">Dragon</option>
+          <option value="beast">Beast</option>
+          <option value="avian">Avian</option>
+          <option value="insect">Insect</option>
+          <option value="plant">Plant</option>
+          <option value="aquatic">Aquatic</option>
+          <option value="celestial">Celestial</option>
+          <option value="infernal">Infernal</option>
+          <option value="machine">Machine</option>
+          <option value="fairy">Fairy</option>
+          <option value="nightmare">Nightmare</option>
+          <option value="unknown">Unknown</option>
+          {{/select}}
+        </select>
+      </div>
+
+      <div class="item-box-border npc-element">
+        <h4>Element</h4>
+        <select class="element-change" name="system.element">
+          {{#select actor.system.element}}
+          <option value="fire">Fire</option>
+          <option value="water">Water</option>
+          <option value="nature">Nature</option>
+          <option value="electric">Electric</option>
+          <option value="earth">Earth</option>
+          <option value="wind">Wind</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+          <option value="mirage">Mirage</option>
+          <option value="neutral">Neutral</option>
+          {{/select}}
+        </select>
+      </div>
+      {{/if}}
+    </div>
+
+    <div class="npc-misc">
+      <div class="item-box-border npc-strengths">
+        <div class="strength-main-title">
+          <h4>Strength</h4>
+          <h4>Rank</h4>
+          <a title="Add Strength" class="item-create" data-type="talent" data-stage="1">
+            <i class="fas fa-plus"></i>
+          </a>
+        </div>
+        <div class="npc-strengths-list">
+          {{#each actor.strength as |strength id|}}
+          <div class="strength-item" data-item-id="{{strength._id}}">
+            <a class="strength-item-display add-strength {{#if (eq strength.system.selected true)}}strength-selected{{/if}}"
+              data-type="strength">
+              <div>{{name}}</div>
+              <div>{{system.rank}}</div>
+            </a>
+
+            <div class="strength-item-buttons">
+              <a title='Edit Strength' class="item-edit" data-type="strength">
+                <i class="fas fa-edit"></i>
+              </a>
+              <a title='Delete Strength' class="item-delete" data-type="strength">
+                <i class="fas fa-trash"></i>
+              </a>
+            </div>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+
+      <div class="item-box-border npc-weaknesses">
+        <h3>Weaknesses</h3>
+        <input type="text" name="weaknesses" value="{{actor.system.weaknesses}}" />
+      </div>
+
+      {{#if (eq actor.system.type "animon")}}
+      <div class="item-box-border npc-sigAttacks">
+        <div class="signature-attack-title">
+          <h4 class="signature-attack-main">Signature Attack</h4>
+          <a title='{{localize "animon.button.addSignatureAttack"}}' class="item-create" data-type="signatureAttack"
+            data-stage="1">
+            <i class="fas fa-plus"></i>
+          </a>
+        </div>
+
+        {{> "systems/animon/templates/partials/signature-attack-display.hbs" stage="1" currentStage="1"}}
+      </div>
+      {{/if}}
+
+      <div class="item-box-border npc-special">
+        <div>
+          <h4>Special:</h4>
+        </div>
+
+        {{editor enrichedStuff target="system.special" button=true editable=editable}}
+      </div>
+    </div>
+  </div>
+</form>

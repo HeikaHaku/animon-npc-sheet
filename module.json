@@ -1,0 +1,37 @@
+{
+  "id": "animon-npc-sheet",
+  "title": "Animon NPC Sheet",
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": "10",
+    "verified": "11"
+  },
+  "esmodules": [
+    "animon-npc-sheet.js"
+  ],
+  "styles": [
+    "dist/npc.css"
+  ],
+  "relationships": {
+    "systems": [
+      {
+        "id": "animon",
+        "type": "system",
+        "compatibility": {}
+      }
+    ]
+  },
+  "authors": [
+    {
+      "name": "HeikaHaku",
+      "discord": "omnix",
+      "email": "admin@omnious.org",
+      "flags": {}
+    }
+  ],
+  "documentTypes": {
+    "Actor": {
+      "npc": {}
+    }
+  }
+}

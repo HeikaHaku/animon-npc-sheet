@@ -1,0 +1,17 @@
+{
+  "name": "animon-npc-sheet",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "sass SCSS/:dist/",
+    "build:watch": "sass --watch SCSS/:dist/"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "sass": "^1.69.0"
+  }
+}

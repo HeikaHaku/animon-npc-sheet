@@ -1,0 +1,137 @@
+.npc-top {
+  display: grid;
+  grid-template-columns: max-content auto max-content;
+}
+
+.npc-animon {
+  display: grid;
+  grid-auto-columns: 1fr;
+}
+.npc-animon > * {
+  grid-row: 1;
+}
+
+.npc-misc {
+  display: grid;
+  grid-template-areas: "strength weakness" "signature special";
+}
+.npc-misc > * {
+  grid-row: 1;
+  height: fit-content;
+}
+.npc-misc .npc-strengths {
+  grid-area: strength;
+}
+.npc-misc .npc-weaknesses {
+  grid-area: weakness;
+}
+.npc-misc .npc-special {
+  grid-area: special;
+}
+.npc-misc .npc-sigAttacks {
+  grid-area: signature;
+}
+
+.npc-stats {
+  display: grid;
+  grid-auto-columns: 1fr;
+}
+.npc-stats > * {
+  display: grid;
+  justify-content: center;
+  grid-row: 1;
+}
+.npc-stats > * [class$=-title] {
+  display: flex;
+  justify-self: center;
+}
+.npc-stats input {
+  width: 40px;
+  margin: 0 auto;
+  text-align: center;
+}
+.npc-stats > :not(:last-child) {
+  border-right: 1px dotted #000000;
+}
+
+.npc-upgrade-block h3 {
+  text-align: center;
+  border-bottom: 1px solid #000000 !important;
+}
+.npc-upgrade-block .npc-upgrades {
+  display: grid;
+  grid-auto-columns: 1fr;
+}
+.npc-upgrade-block .npc-upgrades > * {
+  display: grid;
+  justify-content: center;
+  grid-row: 1;
+}
+.npc-upgrade-block .npc-upgrades input {
+  width: 40px;
+  margin: 0 auto;
+  text-align: center;
+}
+.npc-upgrade-block .npc-upgrades > :not(:last-child) {
+  border-right: 1px dotted #000000;
+}
+
+.npc-health {
+  width: max-content;
+  display: grid;
+  grid-template-columns: 1fr 26px 1fr;
+}
+.npc-health > * {
+  grid-row: 2;
+}
+.npc-health h4 {
+  grid-row: 1;
+  grid-column: 1/end;
+  text-align: center;
+}
+.npc-health input {
+  width: 80px;
+  text-align: center;
+}
+
+.strength-main-title {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 72% 18% 10%;
+  grid-template-columns: 72% 18% 10%;
+  border-bottom: 1px solid #000000;
+}
+.strength-main-title h4 {
+  margin: 0;
+  border-right: 1px solid #000000;
+}
+.strength-main-title a {
+  text-align: center;
+}
+
+.strength-item {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 90% 10%;
+  grid-template-columns: 90% 10%;
+}
+.strength-item .strength-item-display {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 80% 20%;
+  grid-template-columns: 80% 20%;
+}
+.strength-item .strength-item-display > * {
+  border-right: 1px solid #000000;
+}
+.strength-item .strength-item-display.strength-selected {
+  background-color: #90ee90;
+}
+.strength-item .strength-item-buttons {
+  text-align: center;
+}
+.strength-item:not(:last-child) {
+  border-bottom: 1px dotted #000000;
+}
+
+/*# sourceMappingURL=npc.css.map */

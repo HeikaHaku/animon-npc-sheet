@@ -1,0 +1,164 @@
+.npc-top {
+  display: grid;
+  grid-template-columns: max-content auto max-content;
+}
+
+.npc-animon {
+  display: grid;
+  grid-auto-columns: 1fr;
+
+  > * {
+    grid-row: 1;
+  }
+}
+
+.npc-misc {
+  display: grid;
+  //grid-auto-flow: column;
+  grid-template-areas:
+    "strength weakness"
+    "signature special";
+
+  > * {
+    grid-row: 1;
+    height:fit-content;
+  }
+
+  .npc-strengths {
+    grid-area: strength;
+  }
+
+  .npc-weaknesses {
+    grid-area: weakness;
+  }
+
+  .npc-special {
+    grid-area: special;
+  }
+
+  .npc-sigAttacks {
+    grid-area: signature;
+  }
+}
+
+.npc-stats {
+  display: grid;
+  grid-auto-columns: 1fr;
+
+  > * {
+    display: grid;
+    justify-content: center;
+    grid-row: 1;
+
+    [class$="-title"] {
+      display: flex;
+      justify-self: center;
+    }
+  }
+
+  input {
+    width: 40px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  > :not(:last-child) {
+    border-right: 1px dotted #000000;
+  }
+}
+
+.npc-upgrade-block {
+  h3 {
+    text-align: center;
+    border-bottom: 1px solid #000000 !important;
+  }
+
+  .npc-upgrades {
+    display: grid;
+    grid-auto-columns: 1fr;
+
+    > * {
+      display: grid;
+      justify-content: center;
+      grid-row: 1;
+    }
+
+    input {
+      width: 40px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    > :not(:last-child) {
+      border-right: 1px dotted #000000;
+    }
+  }
+}
+
+.npc-health {
+  width: max-content;
+  display: grid;
+  grid-template-columns: 1fr 26px 1fr;
+
+  > * {
+    grid-row: 2;
+  }
+
+  h4 {
+    grid-row: 1;
+    grid-column: 1/end;
+    text-align: center;
+  }
+
+  input {
+    width: 80px;
+    text-align: center;
+  }
+}
+
+.strength-main-title {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 72% 18% 10%;
+  grid-template-columns: 72% 18% 10%;
+  border-bottom: 1px solid #000000;
+
+  h4 {
+    margin: 0;
+    border-right: 1px solid #000000;
+  }
+
+  a {
+    text-align: center;
+  }
+}
+
+.strength-item {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 90% 10%;
+  grid-template-columns: 90% 10%;
+
+  .strength-item-display {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 80% 20%;
+    grid-template-columns: 80% 20%;
+
+    > * {
+      border-right: 1px solid #000000;
+    }
+
+    &.strength-selected {
+      background-color: #90ee90;
+    }
+  }
+
+  .strength-item-buttons {
+    text-align: center;
+  }
+
+  &:not(:last-child) {
+    border-bottom: 1px dotted #000000;
+  }
+}
