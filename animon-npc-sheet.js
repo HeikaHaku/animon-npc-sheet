@@ -8,12 +8,11 @@ Hooks.on('init', () => {
 
   Object.assign(CONFIG.Actor.dataModels, {
     "animon-npc-sheet.npc": NPCModel,
-    "NPC": NPCModel,
   });
 
   DocumentSheetConfig.registerSheet(Actors, "animon", NPCSheet, {
     label: "NPC Sheet",
-    types: ["animon-npc-sheet.npc", "NPC"],
+    types: ["animon-npc-sheet.npc"],
     makeDefault: true
   });
 
@@ -37,13 +36,14 @@ class NPCModel extends foundry.abstract.TypeDataModel {
       personality: new fields.StringField({required: true, blank: true, initial: ""}),
       motivation: new fields.StringField({required: true, blank: true, initial: ""}),
       
+      wounds: new fields.SchemaField({
+        value: new fields.NumberField({required: true, blank: true, initial: 0}),
+        max: new fields.NumberField({required: true, blank: true, initial: 0}),
+      }),
+
       traits: new fields.SchemaField({
         level: new fields.NumberField({required: true, blank: true, initial: 1, min: 1, max: 10}),
         skill: new fields.NumberField({required: true, blank: true, initial: 0}),
-        hp: new fields.SchemaField({
-          current: new fields.NumberField({required: true, blank: true, initial: 0}),
-          max: new fields.NumberField({required: true, blank: true, initial: 0}),
-        }),
         initiative: new fields.NumberField({required: true, blank: true, initial: 0}),
         damage: new fields.NumberField({required: true, blank: true, initial: 0}),
         dodge: new fields.NumberField({required: true, blank: true, initial: 0}),

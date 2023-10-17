@@ -9,6 +9,7 @@ export default class AnimonNPCSheet extends AnimonCharacterSheet {
     const data = await super.getData();
     data.config = CONFIG.npc;
 
+    data.enrichedSpecial = await TextEditor.enrichHTML(this.object.system.special, { async: true });
     this._prepareNPCItems(data);
 
     return data;
