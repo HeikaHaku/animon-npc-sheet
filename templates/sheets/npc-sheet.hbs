@@ -134,11 +134,11 @@
         <h4>Stage:</h4>
         <select class="stage-change" name="system.stage">
           {{#select actor.system.stage}}
-          <option value="fledgling">Fledgling</option>
-          <option value="basic">Basic</option>
-          <option value="super">Super</option>
-          <option value="ultra">Ultra</option>
-          <option value="giga">Giga</option>
+          <option value="1">{{localize "animon.animon.stages.fledgling"}}</option>
+          <option value="2">{{localize "animon.animon.stages.basic"}}</option>
+          <option value="3">{{localize "animon.animon.stages.super"}}</option>
+          <option value="4">{{localize "animon.animon.stages.ultra"}}</option>
+          <option value="5">{{localize "animon.animon.stages.giga"}}</option>
           {{/select}}
         </select>
       </div>
@@ -226,12 +226,19 @@
         <div class="signature-attack-title">
           <h4 class="signature-attack-main">Signature Attack</h4>
           <a title='{{localize "animon.button.addSignatureAttack"}}' class="item-create" data-type="signatureAttack"
-            data-stage="1">
+            data-stage="{{actor.system.stage}}">
             <i class="fas fa-plus"></i>
           </a>
         </div>
 
-        {{> "systems/animon/templates/partials/signature-attack-display.hbs" stage="1" currentStage="1"}}
+        {{> "systems/animon/templates/partials/signature-attack-display.hbs" stage="2"
+        currentStage=actor.system.stage}}
+        {{> "systems/animon/templates/partials/signature-attack-display.hbs" stage="3"
+        currentStage=actor.system.stage}}
+        {{> "systems/animon/templates/partials/signature-attack-display.hbs" stage="4"
+        currentStage=actor.system.stage}}
+        {{> "systems/animon/templates/partials/signature-attack-display.hbs" stage="5"
+        currentStage=actor.system.stage}}
       </div>
       {{/if}}
 

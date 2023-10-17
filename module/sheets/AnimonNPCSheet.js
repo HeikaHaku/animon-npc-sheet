@@ -1,4 +1,5 @@
 import AnimonCharacterSheet from '../../../../systems/animon/module/sheets/AnimonCharacterSheet.js';
+import * as dice from '../dice.js';
 
 export default class AnimonNPCSheet extends AnimonCharacterSheet {
   get template() {
@@ -41,6 +42,54 @@ export default class AnimonNPCSheet extends AnimonCharacterSheet {
       html.find('.add-strength').click(this._onAddTalent.bind(this));
     }
   }
+
+  _onRollStat(event) {
+    event.preventDefault();
+    let element = event.currentTarget;
+    let stat = element.dataset.stat;
+    let die = element.dataset.value;
+
+    dice.StatCheck(stat, die, this.actor);
+}
+
+  _onStageChange(event) {
+    event.preventDefault();
+
+    for (let strength of this.actor.strength) {
+      this.actor.items.get(strength._id).update({ "system.selected": false });
+    }
+
+    for(let signatureAttack of this.actor.signatureAttack) {
+      this.actor.items.get(signatureAttack._id).update({ "system.selected": false });
+    }
+  }
+
+  _onAddSignatureAttack(event) {
+    event.preventDefault();
+    let element = event.currentTarget;
+    let itemType = "." + element.dataset.type + "-item"
+    let itemId = element.closest(itemType).dataset.itemId;
+    let signatureAttackId = ""
+    let item = this.actor.items.get(itemId);
+    if (item.system.selected) {
+        item.update({ "system.selected": false })
+    } else {
+      for (let signatureAttack of this.actor.signatureAttack) {
+        signatureAttackId = signatureAttack._id;
+        item = this.actor.items.get(signatureAttackId);
+        item.update({ "system.selected": false });
+      }
+        for (let i = 0; i < this.actor.signatureAttack.length; i++) {
+            signatureAttackId = this.actor.signatureAttack[i]._id;
+            item = this.actor.items.get(signatureAttackId);
+            if (signatureAttackId == itemId) {
+                item.update({ "system.selected": true })
+            } else {
+                item.update({ "system.selected": false })
+            }
+        }
+    }
+}
 
   // _onRollStat(event) {
   //   event.preventDefault();

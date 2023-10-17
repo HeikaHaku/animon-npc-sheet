@@ -63,7 +63,7 @@ class NPCModel extends foundry.abstract.TypeDataModel {
         dodge: new fields.NumberField({required: true, blank: true, initial: 0}),
       }),
 
-      stage: new fields.StringField({required: true, blank: true, initial: "basic"}),
+      stage: new fields.NumberField({required: true, blank: true, initial: 1}),
       upgrades: new fields.SchemaField({
         aggressive: new fields.NumberField({required: true, blank: true, initial: 0}),
         defensive: new fields.NumberField({required: true, blank: true, initial: 0}),
