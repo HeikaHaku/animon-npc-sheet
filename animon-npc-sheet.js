@@ -22,8 +22,8 @@ Hooks.on('init', () => {
   });
 
   Handlebars.registerHelper('upgradeCount', (actor) => {
-    const stages = ['fledgling', 'basic', 'super', 'ultra', 'giga'];
-    return `(${Object.values(actor.system.upgrades).reduce((sum, u) => sum + u, 0)}/${stages.indexOf(actor.system.stage)})`;
+    const stage = parseInt(String(actor.system.stage) || '1') - 1;
+    return `(${Object.values(actor.system.upgrades).reduce((sum, u) => sum + u, 0)}/${stage})`;
   });
 });
 
@@ -32,50 +32,63 @@ class NPCModel extends foundry.abstract.TypeDataModel {
     const fields = foundry.data.fields;
 
     return {
-      type: new fields.StringField({required: true, blank: true, initial: ""}),
-      personality: new fields.StringField({required: true, blank: true, initial: ""}),
-      motivation: new fields.StringField({required: true, blank: true, initial: ""}),
-      
+      type: new fields.StringField({ required: true, blank: true, initial: "" }),
+      personality: new fields.StringField({ required: true, blank: true, initial: "" }),
+      motivation: new fields.StringField({ required: true, blank: true, initial: "" }),
+
       wounds: new fields.SchemaField({
-        value: new fields.NumberField({required: true, blank: true, initial: 0}),
-        max: new fields.NumberField({required: true, blank: true, initial: 0}),
+        value: new fields.NumberField({ required: true, blank: true, initial: 0 }),
+        max: new fields.NumberField({ required: true, blank: true, initial: 0 }),
       }),
 
       traits: new fields.SchemaField({
-        level: new fields.NumberField({required: true, blank: true, initial: 1, min: 1, max: 10}),
-        skill: new fields.NumberField({required: true, blank: true, initial: 0}),
-        initiative: new fields.NumberField({required: true, blank: true, initial: 0}),
-        damage: new fields.NumberField({required: true, blank: true, initial: 0}),
-        dodge: new fields.NumberField({required: true, blank: true, initial: 0}),
+        level: new fields.NumberField({ required: true, blank: true, initial: 1, min: 1, max: 10 }),
+        skill: new fields.NumberField({ required: true, blank: true, initial: 0 }),
+        initiative: new fields.NumberField({ required: true, blank: true, initial: 0 }),
+        damage: new fields.NumberField({ required: true, blank: true, initial: 0 }),
+        dodge: new fields.NumberField({ required: true, blank: true, initial: 0 }),
       }),
 
       bonuses: new fields.SchemaField({
-        hp: new fields.NumberField({required: true, blank: true, initial: 0}),
-        initiative: new fields.NumberField({required: true, blank: true, initial: 0}),
-        damage: new fields.NumberField({required: true, blank: true, initial: 0}),
-        dodge: new fields.NumberField({required: true, blank: true, initial: 0}),
+        hp: new fields.NumberField({ required: true, blank: true, initial: 0 }),
+        initiative: new fields.NumberField({ required: true, blank: true, initial: 0 }),
+        damage: new fields.NumberField({ required: true, blank: true, initial: 0 }),
+        dodge: new fields.NumberField({ required: true, blank: true, initial: 0 }),
       }),
 
       overrides: new fields.SchemaField({
-        hp: new fields.NumberField({required: true, blank: true, initial: 0}),
-        initiative: new fields.NumberField({required: true, blank: true, initial: 0}),
-        damage: new fields.NumberField({required: true, blank: true, initial: 0}),
-        dodge: new fields.NumberField({required: true, blank: true, initial: 0}),
+        hp: new fields.NumberField({ required: true, blank: true, initial: 0 }),
+        initiative: new fields.NumberField({ required: true, blank: true, initial: 0 }),
+        damage: new fields.NumberField({ required: true, blank: true, initial: 0 }),
+        dodge: new fields.NumberField({ required: true, blank: true, initial: 0 }),
       }),
 
-      stage: new fields.NumberField({required: true, blank: true, initial: 1}),
+      stage: new fields.StringField({ required: true, blank: true, initial: "1" }),
       upgrades: new fields.SchemaField({
-        aggressive: new fields.NumberField({required: true, blank: true, initial: 0}),
-        defensive: new fields.NumberField({required: true, blank: true, initial: 0}),
-        tough: new fields.NumberField({required: true, blank: true, initial: 0}),
-        swift: new fields.NumberField({required: true, blank: true, initial: 0})
+        aggressive: new fields.NumberField({ required: true, blank: true, initial: 0 }),
+        defensive: new fields.NumberField({ required: true, blank: true, initial: 0 }),
+        tough: new fields.NumberField({ required: true, blank: true, initial: 0 }),
+        swift: new fields.NumberField({ required: true, blank: true, initial: 0 })
       }),
-      classification: new fields.StringField({required: true, blank: true, initial: ""}),
-      element: new fields.StringField({required: true, blank: true, initial: ""}),
+      classification: new fields.StringField({ required: true, blank: true, initial: "" }),
+      element: new fields.StringField({ required: true, blank: true, initial: "" }),
       weaknesses: new fields.StringField(),
-      special: new fields.HTMLField({required: false, blank: true, initial: ""}),
+      special: new fields.HTMLField({ required: false, blank: true, initial: "" }),
     }
   }
+
+  /**
+   * Migrate source data from some prior format into a new specification.
+   * The source parameter is either original data retrieved from disk or provided by an update operation.
+   * @inheritDoc
+   */
+  // static migrateData(source) {
+  //   console.log(source, source.update);
+  //   const stage = source.stage;
+  //   if (!(Number.isInteger(stage) && Number.isFinite(stage)) || Number.isNaN(stage)) {
+  //     source.stage = 5;
+  //   }
+  // }
 }
 
 /**
