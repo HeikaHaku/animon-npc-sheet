@@ -1,0 +1,15 @@
+{{!-- Sheet for setting Animon NPC bonuses and overrides --}}
+
+{{#each actor.system.bonuses as |bonus name|}}
+<div class="npc-bonus {{bonus}}">
+  <h3>{{titlecase name}}</h3>
+  <input type="text" name="system.bonuses.{{bonus}}" value="{{bonus}}"/>
+</div>
+{{/each}}
+
+{{#each actor.system.overrides as |override name|}}
+<div class="npc-override {{override}}">
+  <h3>{{titlecase name}}</h3>
+  <input type="text" name="system.overrides.{{override}}" value="{{actor.system.bonuses.[name]}}"/>
+</div>
+{{/each}}

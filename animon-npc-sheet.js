@@ -1,6 +1,15 @@
 import NPCSheet from './module/sheets/AnimonNPCSheet.js';
 import { npc } from './module/config.js';
 
+//register all handlebars templates
+async function preloadHandlebarsTemplates() {
+  const templatePaths = [
+    "modules/animon-npc-sheet/templates/partials/bonus-override-tab.hbs",
+  ];
+
+  return loadTemplates(templatePaths)
+};
+
 Hooks.on('init', () => {
   console.log('Animon | Registering NPC Sheet');
 
@@ -25,6 +34,8 @@ Hooks.on('init', () => {
     const stage = parseInt(String(actor.system.stage) || '1') - 1;
     return `(${Object.values(actor.system.upgrades).reduce((sum, u) => sum + u, 0)}/${stage})`;
   });
+
+  preloadHandlebarsTemplates();
 });
 
 class NPCModel extends foundry.abstract.TypeDataModel {
@@ -54,6 +65,7 @@ class NPCModel extends foundry.abstract.TypeDataModel {
         initiative: new fields.NumberField({ required: true, blank: true, initial: 0 }),
         damage: new fields.NumberField({ required: true, blank: true, initial: 0 }),
         dodge: new fields.NumberField({ required: true, blank: true, initial: 0 }),
+        skill: new fields.NumberField({ required: true, blank: true, initial: 0 }),
       }),
 
       overrides: new fields.SchemaField({
@@ -61,6 +73,7 @@ class NPCModel extends foundry.abstract.TypeDataModel {
         initiative: new fields.NumberField({ required: true, blank: true, initial: 0 }),
         damage: new fields.NumberField({ required: true, blank: true, initial: 0 }),
         dodge: new fields.NumberField({ required: true, blank: true, initial: 0 }),
+        skill: new fields.NumberField({ required: true, blank: true, initial: 0 }),
       }),
 
       stage: new fields.StringField({ required: true, blank: true, initial: "1" }),
@@ -83,11 +96,7 @@ class NPCModel extends foundry.abstract.TypeDataModel {
    * @inheritDoc
    */
   // static migrateData(source) {
-  //   console.log(source, source.update);
-  //   const stage = source.stage;
-  //   if (!(Number.isInteger(stage) && Number.isFinite(stage)) || Number.isNaN(stage)) {
-  //     source.stage = 5;
-  //   }
+  //   console.log(source, source._getExpectedStats(source));
   // }
 }
 
