@@ -46,7 +46,7 @@
               <h4>Level</h4>
               <a title="Level" data-stat="Level" data-value="{{actor.system.traits.level}}"></a>
             </div>
-            <input type="number" name="system.traits.level" value="{{actor.system.traits.level}}" />
+            <input type="number" class="update-level" name="system.traits.level" value="{{actor.system.traits.level}}" min="1" max="{{data.system.limits.level}}" />
           </div>
 
           <div class="npc-skill">

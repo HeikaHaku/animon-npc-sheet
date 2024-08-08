@@ -1,7 +1,8 @@
-import AnimonCharacterSheet from '../../../../systems/animon/module/sheets/AnimonCharacterSheet.js';
+//import AnimonCharacterSheet from '../../../../systems/animon/module/sheets/AnimonCharacterSheet.js';
+import VariantAnimonCharacterSheet from '/modules/animon-variant-rules/module/sheets/AnimonCharacterSheet.js';
 import * as dice from '../dice.js';
 
-export default class AnimonNPCSheet extends AnimonCharacterSheet {
+export default class AnimonNPCSheet extends VariantAnimonCharacterSheet {
   get template() {
     return "modules/animon-npc-sheet/templates/sheets/npc-sheet.hbs";
   }
@@ -12,6 +13,18 @@ export default class AnimonNPCSheet extends AnimonCharacterSheet {
 
     data.enrichedSpecial = await TextEditor.enrichHTML(this.object.system.special, { async: true });
     this._prepareNPCItems(data);
+
+    return data;
+  }
+
+  async _prepareVariantData(type, data) {
+    switch(type) {
+      case 'animon-npc-sheet.npc':
+        data.data.system.limits = { level: game.settings.get('animon-variant-rules', 'maxNpcLevel') || Infinity };
+        break;
+      default:
+        return await super._prepareVariantData(type, data);
+    }
 
     return data;
   }
@@ -40,7 +53,12 @@ export default class AnimonNPCSheet extends AnimonCharacterSheet {
 
     if (this.actor.isOwner) {
       html.find('.add-strength').click(this._onAddTalent.bind(this));
+      html.find('.update-level').change(this._onUpdateLevel.bind(this));
     }
+  }
+
+  _onUpdateLevel(event) {
+
   }
 
   _onRollStat(event) {

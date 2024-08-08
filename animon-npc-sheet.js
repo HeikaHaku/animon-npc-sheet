@@ -16,6 +16,16 @@ Hooks.on('init', () => {
     makeDefault: true
   });
 
+  console.log('Animon | Updating Variant Rules');
+  game.settings.register('animon-variant-rules', 'maxNpcLevel', {
+    name: 'Max NPC Level',
+    hint: 'Set Maximum NPC Level. (0 to set no limit.)',
+    scope: 'world',
+    config: true,
+    default: 10,
+    type: Number,
+  })
+
   console.log('Animon | Registering Haku\'s Handlebars Helpers');
   Handlebars.registerHelper('titlecase', (text) => {
     return text.replace(/\w\S*/g, (txt) => txt.charAt(0).toLocaleUpperCase() + txt.substr(1).toLocaleLowerCase());
@@ -42,7 +52,7 @@ class NPCModel extends foundry.abstract.TypeDataModel {
       }),
 
       traits: new fields.SchemaField({
-        level: new fields.NumberField({ required: true, blank: true, initial: 1, min: 1, max: 10 }),
+        level: new fields.NumberField({ required: true, blank: true, initial: 1, min: 1, max: game.settings.get('animon-variant-rules', 'maxNpcLevel') || Infinity }),
         skill: new fields.NumberField({ required: true, blank: true, initial: 0 }),
         initiative: new fields.NumberField({ required: true, blank: true, initial: 0 }),
         damage: new fields.NumberField({ required: true, blank: true, initial: 0 }),

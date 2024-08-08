@@ -1,7 +1,7 @@
 {
   "id": "animon-npc-sheet",
   "title": "Animon NPC Sheet",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0-alpha.3",
   "compatibility": {
     "minimum": "10",
     "verified": "11"
@@ -26,6 +26,13 @@
         "type": "system",
         "compatibility": {}
       }
+    ],
+    "requires": [
+      {
+        "id": "animon-variant-rules",
+        "type": "module",
+        "compatibility": {}
+      }
     ]
   },
   "authors": [
@@ -43,5 +50,5 @@
   },
   "url": "https://github.com/HeikaHaku/animon-npc-sheet",
   "manifest": "https://github.com/HeikaHaku/animon-npc-sheet/raw/master/module.json",
-  "download": "https://github.com/HeikaHaku/animon-npc-sheet/archive/refs/tags/v1.0.0-alpha.2.zip"
+  "download": "https://github.com/HeikaHaku/animon-npc-sheet/archive/refs/tags/v1.0.0-alpha.3.zip"
 }
